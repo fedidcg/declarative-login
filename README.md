@@ -18,9 +18,9 @@ This is a set of proposals to allow websites to expose to agentic browsers how t
 
 There are probably a few conflicting goals, but here are a few that occur to me:
 
-- Privacy: the user agent should make its “agentic mode” and an “non-agentic mode” indistinguishable from each other for the website (although we the user agent could choose to reveal itself if it wanted to as “agentic”)
 - Ergonomics matter: it should be easy for developers (and framework authors) to retrofit this annotation into their existing pages. The benefits for developers might be low, so the easier we can make the better (e.g. ARIA struggles to get adoption because the benefit/cost ratio is low).
 - Tailwinds: it helps if the design interoperates with other assistive agents, like search engines or chatbots, so that we can increase the incentives for developers to adopt and maintain the annotation.
+- Privacy: ideally, the user agent should make its “agentic mode” and an “non-agentic mode” indistinguishable from each other for the website to the extent that it is possible
 
 ## Proposal
 
