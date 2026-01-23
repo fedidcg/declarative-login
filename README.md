@@ -70,6 +70,7 @@ Here are a few ones that I’m aware of:
 ### Serialization
 - microformats
 - RDFa
+- JSON-LD
 - Use the `<data>` element
 - Use the `data-*` attribute
 - The `autocomplete` attribute
@@ -101,6 +102,21 @@ Problem:
 
 - Reveals to the website that we are operating under an assistant
 - https://github.com/schemaorg/schemaorg/issues/4507#issuecomment-3740859356
+
+### JSON-LD
+
+```javascript
+{
+  "@context": "https://schema.org",
+  "@type": "LoginAction",
+  "federation": {
+    "configURL": "https://idp.example/config.json",
+    "clientId": "1234",
+    "nonce": "4567",
+    "fields": ["email", "name", "picture"],
+  },
+}
+```
 
 ## Alternatives Considered
 
