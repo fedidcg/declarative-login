@@ -56,9 +56,14 @@ The semantics of this annotation is that an assisted browser would be able to as
 <div itemscope itemtype="https://schema.org/LoginAction">
   <data itemprop="federation" 
     value="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\"" />
-  <data itemprop="target" value="js_callback">
   <button>Sign-in with X</button>
 </div>
+```
+
+The invocation of the action occurs via a DOM event:
+
+```javascript
+document.addEventListener("action", ({type, federation: {token}}) => login(token));
 ```
 
 ## Alternatives Under Consideration
