@@ -126,7 +126,7 @@ Problem:
 The result of the action gets returned as a DOM event:
 
 ```javascript
-document.addEventListener("action", ({type, token}) => login(token));
+document.addEventListener("action", ({type, federation: {token}}) => login(token));
 ```
 
 ## Alternatives Considered
