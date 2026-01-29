@@ -42,26 +42,12 @@ The proposal is to introduce to LoginAction a property called `federation` which
 For example:
 
 ```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LoginAction",
-  "federation": {
-    "providers": [{
-      "configURL": "https://idp.example/config.json",
-      "clientId": "1234",
-      "nonce": "4567",
-      "fields": ["email", "name", "picture"],
-     }]
-  },
-}
-</script>
-```
-
-The invocation of the action occurs via a DOM event:
-
-```javascript
-document.addEventListener("action", ({type, federation: {token}}) => login(token));
+<login type="federated" 
+  callback="callback"
+  clientId="1234" 
+  configURL="https://idp.example/config.json">
+    <a href="https://idp.example/oauth?...">Sign-in with IdP</a>
+</login>
 ```
 
 ## Alternatives Under Consideration
@@ -154,6 +140,32 @@ document.addEventListener("login", ({token}) => login(token));
     value="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\"" />
   <button>Sign-in with X</button>
 </div>
+```
+
+### JSON-LD
+
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LoginAction",
+  "federation": {
+    "providers": [{
+      "configURL": "https://idp.example/config.json",
+      "clientId": "1234",
+      "nonce": "4567",
+      "fields": ["email", "name", "picture"],
+     }]
+  },
+}
+</script>
+```
+
+The invocation of the action occurs via a DOM event:
+
+```javascript
+document.addEventListener("action", ({type, federation: {token}}) => login(token));
 ```
 
 ## Alternatives Considered
