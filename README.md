@@ -57,13 +57,6 @@ The problem here is that, because this is just any other combination of low leve
 
 Not every website developer will have the incentives (expertise or demand) to annotate their content to be accessed by assistive browsers, but for those that do, what’s the best way that they can annotate their page to make user agents (e.g. browsers and search engines) better aware of their login flows?
 
-## Goals
-
-There are probably a few conflicting goals, but here are a few that occur to me:
-
-- Ergonomics: it should be easy for developers (and framework authors) to retrofit this annotation into their existing pages. The benefits for developers might be low, so the easier we can make the better (e.g. ARIA struggles to get adoption because the benefit/cost ratio is low).
-- Tailwinds: it helps if the design interoperates with other assistive agents, like search engines or chatbots, so that we can increase the incentives for developers to adopt and maintain the annotation.
-
 ## Proposal
 
 There are many serializations and ontologies under consideration (see below), but just to fix on something, let’s start with a proposal to introduce a `<login>` element comparable to [`<geolocation>`](https://github.com/WICG/PEPC/blob/main/geolocation_explainer.md), `<search>` and `<main>`.
