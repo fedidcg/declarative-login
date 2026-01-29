@@ -2,7 +2,7 @@ Author: @samuelgoto
 Date: Jan 12, 2026
 Status: early draft
 
-# Agentic Login Toolkit
+# Declarative Semantic Login
 
 ## Problem Statement
 
@@ -10,9 +10,52 @@ In LLM-powered Agentic browsers, many user journeys involve logging in to websit
 
 However, as much as user agents are and should develop as many heuristics as possible to retrofit into the existing content on the Web, heuristics are, by design, unreliable and are expected to have lower precision and quality than structured content that is opted-into by website owners.
 
-Not every website developer will have the incentives (expertise or demand) to annotate their content to be accessed by assistive browsers, but for those that do, what’s the best way that they can annotate their page to make user agents (e.g. browsers and search engines) better aware of their login flows?
+Currently, login forms are marked up with a combination of low-level opaque primitives in browsers, which prevents browsers (specially agentic ones) to offer high-level / structured ways to log users in (e.g. an account chooser).
 
-This is a set of proposals to allow websites to expose to agentic browsers how their login flows are structured, so that they can be used as structured tools, rather than unstructured actuation. 
+For example, federated login is generally presented as a series of "Sign-in with IdP" buttons that are typically marked up as a `<a>`, a `<form>` or javascript, such as `window.open()` or a `window.location.href`.
+
+For example:
+
+```html
+<a href="https://idp.example/oauth?...">
+  Sign-in with IdP
+</a>
+```
+
+The same goes for passkeys, which are usually also presented to the user as a "Sign-in with Passkey" button (or as a `mediation="conditional"` in autofill):
+
+For example:
+
+```html
+<span onclick="navigator.credentials.get({publicKey: ...})">
+  Sign-in with Passkeys
+</span>
+```
+
+Usernames and passwords are usually presented as a `<form>` element to users, with a lot more structure, combining the `<form>` elements and the `autocomplete` attribute.
+
+```html
+<form action="...">
+  Username: <input type="text" autocomplete="username">
+  Password: <input type="password">
+  <input type="submit" value="login">
+</form>
+```
+
+Email and phone verification are also usually done with forms, with the handy `one-time-code` autocomplete:
+
+```html
+<form action="...">
+  Email OTP: <input type="text" autocomplete="one-time-code">
+  <input type="submit" value="login">
+</form>
+```
+
+These elements are usually used in combination, with most sites supporting a mix and match of these affordances (e.g. allowing the user to login with federation OR passwords OR passkeys, followed by email OR phone number verification).
+
+The problem here is that, because this is just any other combination of low level HTML tags, the (agentic or not) browser can't infer that a specific option (e.g. a federated login) can be offered to the user to login.
+
+Not every website developer will have the incentives (expertise or demand) to annotate their content to be accessed by assistive browsers, but for those that do, what’s the best way that they can annotate their page to make user agents (e.g. browsers and search engines) better aware of their login flows?
 
 ## Goals
 
