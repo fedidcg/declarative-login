@@ -6,7 +6,7 @@ Status: early draft
 
 # Declarative FedCM: The `<federation>` element
 
-TL;DR; This is a proposal to allows website authors to declare to agentic browsers (e.g. LLM-powered browser actuation) that a federated login option is available so that it can be used as a structured and deterministic high-level tool. We also believe it is a necessary stepping stone towards an `<login>` element (see forwards compatibility section below).
+TL;DR; This is a proposal to allows website authors to declaratively markup federated login options with a new element, `<federation>`, with a participating FedCM identity provider, as an alternative to the already existing imperative Javascript option. The `<federation>` element plays three roles: (a) it allows website authors to declaratively and ergonomically use federation, (b) it allows browsers to discover federated login option uniformally and finally (c) it serves as a necessary stepping stone towards a unified account chooser `<login>` element (see forwards compatibility section below).
 
 ## Problem Statement
 
