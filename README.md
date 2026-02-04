@@ -60,58 +60,54 @@ There are many conflicting goals that we are navigating, but here are a few that
 
 The proposal is to create an element that can wrap existing markup that allows the website author to declare what is the equivalent Federated Credential Management API request.
 
-The `<federation>` element’s semantics are that, when clicked, it executes a credential management API call to FedCM’s active mode. The element’s display (e.g. CSS) is controlled by its inner children.
+The `<federation>` element’s semantics are that, when clicked, it executes a credential management API call to FedCM’s `mode="active"`. 
+
+The element’s display (e.g. CSS) is controlled by its inner children.
 
 Before:
 
 ```html
-Welcome to my website!
-
-<a href="https://idp1.example/oauth?">
-  Sign-in with IdP 1
-</a>
-
-<a href="https://idp2.example/oauth?">
-  Sign-in with IdP 2
+<a href="https://idp.example/oauth?">
+  Sign-in with IdP
 </a>
 ```
 
 After:
 
 ```html
-<federation onlogin="callback"
-  clientId="1234"
-  configURL="https://idp.example/config">
-  <a href="https://idp1.example/oauth?...">
-    Sign-in with IdP 1
-  </a>
-</federation>
-
-<federation onlogin="callback"
-  clientId="456"
-  configURL="https://idp.example/config">
-  <a href="https://idp2.example/oauth?...">
-    Sign-in with IdP 2
+<federation clientId="1234" configURL="https://idp.example/config">
+  <a href="https://idp.example/oauth?...">
+    Sign-in with IdP
   </a>
 </federation>
 ```
 
 Having a `<federation>` element that has real semantics makes it much easier for developers to implement it, because they can test and prototype its usage locally in a traditional browser window (as opposed to ARIA and microdata, which requires testing with a screen reader and a search engine respectively).
 
-However, it should also be possible for the author to choose to only make the markup available for agentic browsers, so a parameter called `allow="agentic"` is introduced to allow-list only agentic use.
-
 `<federation>` has a `generic` ARIA role (similar to `<span>`’s contribution to ARIA) and relies on its inner children to set up the right ARIA roles.
 
-Here are the attributes of the <federation> element:
+Here is the definition of the <federation> element:
 
-- clientId
-- configURL
-- fields
-- params
-- loginhint
-- domainhint
-- onlogin (callback)
-- allow (deployment control)
+```typescript
+[
+    Exposed=Window,
+] interface HTMLFederationElement : HTMLElement {
+    // FedCM request parameters
+    [CEReactions, Reflect] attribute DOMString clientid;
+    [CEReactions, Reflect, URL] attribute USVString configurl;
+    [CEReactions, Reflect] attribute DOMString loginhint;
+    [CEReactions, Reflect] attribute DOMString domainhint;
+    [CEReactions, Reflect] attribute DOMString fields;
+    [CEReactions, Reflect] attribute DOMString params;
+    // Used when the IdP returns a token, rather than a redirect_to
+    attribute EventHandler ontoken;
+    readonly attribute DOMString token;
+};
+```
+
+# Open Questions
+
+- Can/should developers be able to control whether the `<federation>` element is a "semantics only" element (such as `<search>`) so that it can be deployed exclusively in agentic browsers (but not affect regular users?)? If so, how?
 
 # Future Work and Forwards Compatibility
 
