@@ -6,7 +6,7 @@ Status: early draft
 
 # Declarative FedCM: The `<federation>` element
 
-TL;DR; This is a proposal to allows website authors to declare to agentic browsers (e.g. LLM-powered browser actuation) that a federated login option is available so that it can be used as a structured and deterministic high-level tool. 
+TL;DR; This is a proposal to allows website authors to declare to agentic browsers (e.g. LLM-powered browser actuation) that a federated login option is available so that it can be used as a structured and deterministic high-level tool. We also believe it is a necessary stepping stone towards an `<login>` element (see forwards compatibility section below).
 
 ## Problem Statement
 
