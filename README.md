@@ -280,6 +280,20 @@ Here are a few ones that I’m aware of:
  
 Here are a few compelling variations that we are actively exploring:
 
+### <script type="federation">
+
+```html
+<script id="foo" type="federation">
+{
+  clientID: "1234",
+  configURL: "https://idp.example",
+}
+</script>
+<script>
+document.getElementById("foo").addEventListener("login", () => ...)
+</script>
+```
+
 ### ARIA `role="login"`
 
 This is a variation to augument `role` with an additional landmak, `login`, akin to [`search`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role):
