@@ -48,9 +48,9 @@ And degrades gracefully to the following in browsers without native support:
 
 One of the most common patterns on the Web is to allow users to login to websites.
 
-Unfortunately, lacking browser support, login has been constructed entirely on top of the browser using low level primitives, such as `<form>` for passwords/passkeys and `<a>` for social login, the two most common authentication mechahnisms, in what's commonly called today the NASCAR flag UI (because it looks like an area filled with commercial brands).
-
-When users interact with the NASCAR flag, they have to guess what to use between the various options: do I have a passkey? a password? or did I click in one of these social login options before?
+Login typically starts with a "login" link, common available on the top-right corner of websites which usually leads to what's known as the NASCAR flag UI:
+<img src="https://github.com/user-attachments/assets/e4f133c4-66c6-4f8f-9552-b7cc99d118ec" />
+When users interact with the NASCAR flag UI, they have to guess what to use between the various options: do I have a passkey? a password? or did I click in one of these social login options before?
 
 Because the NASCAR flag is implemented in userland, it can't (by design) reconcile and unify across the various login methods, leading to confusion and friction at best and account duplication at worst.
 
@@ -60,7 +60,7 @@ While, for the most part, each of these credentials have been deployed independe
 
 However, because `immediate mediation` is an imperative API call, the browser can't use it outside of its content area, for example in a common browser UI area (e.g. the URL bar) or in agentic flows (e.g. when an LLM is helping the user login).
 
-To further unify and reconcile across authentication mechanisms, would it be possible to create a declarative browser-mediated login flow that websites could use?
+To further unify and reconcile across authentication mechanisms, would it be possible to create a declarative browser-mediated login flow that websites could use before users even get to the NASCAR flag UI?
 
 # Goals
 
