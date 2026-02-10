@@ -10,7 +10,7 @@ TL;DR; every website has to create their own login flow, leading to an inconsist
 
 ```html
 <login onselect="login()">
-  <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred" timeout="60000"></credential>
+  <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred"></credential>
   <credential type="federated" clientId="1234" configURL="https://idp1.example/config"></credential>
   <credential type="federated" clientId="5678" configURL="https://idp2.example/config"></credential>
   <a href="login.html">login</a>
@@ -69,7 +69,7 @@ The intention is to replace the typical "login" links that show up on the top ri
 
 ```html
 <login onselect="login()">
-  <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred" timeout="60000"></credential>
+  <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred"></credential>
   <credential type="federated" clientId="1234" configURL="https://idp1.example/config"></credential>
   <credential type="federated" clientId="5678" configURL="https://idp2.example/config"></credential>
   <a href="login.html">login</a>
@@ -91,7 +91,7 @@ So, for example, as opposed to replacing the "login" top right corner links, we'
 
 ```html
 <login onselect="login()">
-  <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred" timeout="60000">
+  <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred">
     <a onclick="navigator.credentials.get({publicKey: ...})">Sign-in with a Passkey</a>
   </credential>  
 </login>
