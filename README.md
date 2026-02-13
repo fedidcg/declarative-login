@@ -112,17 +112,25 @@ This would allow us to introduce `<login>` for each of these individual mechanis
 
 Once we have each individual credential type working independently, it becomes a lot easier to unify them into a single UI. We'd expect that much of that work would result in the development of [`immediate mediation`](https://github.com/w3ctag/design-reviews/issues/1092) and would allow us to arrive at the desired end state.
 
-# Open Questions
+# Alternatives Under Consideration
 
 - ~Should this be only available for agentic browsers?~
     - The intuition is that we shouldn't design markup that is only available to agentic browsing because it tends to be hard to develop again and maintain.
 - Can/should developers be able to control whether the `<login>` element is a "semantics only" element (such as `<search>`) so that it can be deployed exclusively in agentic browsers (but not affect regular users?)? If so, how?
 
-# Alternatives Under Consideration
-
 ## Should `<login>` have default rendering?
 
 `<geolocation>` and `<install>` have a "default rendering" and "controlled" rendering which raises some user comprehension bars. We should consider if that would be applicable to `<login>`.
+
+## Should `<login>` be like a `<select>`?
+
+This open question is similar to the previous/next one, but has to do with the desire to make `<login>` both (a) have a rendering semantic and (b) participate in forms, and the most common analogy is to make `<login>` work like a `<select>` and `<credential>` work like an `<option>` that contributes to the container.
+
+A browser could render `<login>` like a visually styled `<select>` (e.g. maybe it is a login icon, rather than a dropbox) and allows the user to choose one between many of the available login options.
+
+One of the challenges that occurred as we thought this through was rendering private credential information inline and breaking [contextual integrity](https://github.com/fedidcg/LightweightFedCM/issues/50): displaying cross-site information inline.
+
+Still, we think there is something useful/desirable to think of `<login>` as a `<select>` element, so worth noting that this is under consideration.
 
 ## Should `<login>` participate in `<form>` so that it can be used declaratively?
 
@@ -140,11 +148,13 @@ All forms of credentials are most useful server-side rather than client-side, so
 
 # Alternatives Considered
 
+## Semantics-only markup
+
 We considered a series of alternatives that were "sematics only" (e.g. markup that doesn't have any effect in the rendering engine), such as microdata and JSON-LD.
 
 We found this limitation to be less useful because it could lead to markup being poorly maintained over time if it was intended only for agentic browsers. 
 
-## <script type="federation">
+### <script type="federation">
 
 ```html
 <script type="federation">
@@ -158,7 +168,7 @@ document.addEventListener("login", () => ...)
 </script>
 ```
 
-## ARIA `role="login"`
+### ARIA `role="login"`
 
 This is a variation to augument `role` with an additional landmak, `login`, akin to [`search`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role):
 
@@ -176,7 +186,7 @@ Open questions:
 - What should be the ARIA role that the "login" role should have? Should it be a landmark?
 - How do we handle non-conforming screen readers? How do we make it backwards compatible to unchanged screen readers?
 
-## Microdata
+### Microdata
 
 This proposal is to introduce to LoginAction a property called `federation` which describes what the FedCM request would be.
 
@@ -194,7 +204,7 @@ Open Questions:
 
 - See open questions about ARIA above
 
-## JSON-LD
+### JSON-LD
 
 This proposal is to introduce to LoginAction a property called `federation` which describes what the FedCM request would be.
 
@@ -220,7 +230,7 @@ document.addEventListener("login", () => ...)
 </script>
 ```
 
-## Mediation: `conditional`
+### Mediation: `conditional`
 
 In this variation, we use the `mediation="conditional"` parameter to let the agent operate in the unresolved promise.
 
@@ -231,7 +241,7 @@ const {token} = await navigator.credentials.get({
 });
 ```
 
-## `<permission type="login">`
+### `<permission type="login">`
 
 We could extend the [PEPC element](https://github.com/WICG/PEPC/blob/main/explainer.md) to introduce a `type="login"` parameter.
 
@@ -241,7 +251,7 @@ We could extend the [PEPC element](https://github.com/WICG/PEPC/blob/main/explai
 </permission>
 ```
 
-## `meta` tags
+### `meta` tags
 
 In this variation we’d use the <meta> tag disassociated with the element to be clicked.
 
@@ -254,7 +264,7 @@ document.addEventListener("login", ({token}) => login(token));
 </script>
 ```
 
-## Overload WWW-Authenticate
+### Overload WWW-Authenticate
 
 In this variation we’d support a declarative request made via HTTP headers, like WWW-Authenticate or introduce a few one:
 
