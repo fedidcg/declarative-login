@@ -74,7 +74,6 @@ The intention is to replace the typical "login" links that show up on the top ri
   <credential type="federated" clientId="5678" configURL="https://idp2.example/config"></credential>
   <a href="login.html">login</a>
 </login>
-
 ```
 
 When clicked, a modal dialog is shown, with a browser mediated unified account chooser that contains all of the options specified by the developer.
@@ -116,6 +115,20 @@ Once we have each individual credential type working independently, it becomes a
 # Open Questions
 
 - Can/should developers be able to control whether the `<login>` element is a "semantics only" element (such as `<search>`) so that it can be deployed exclusively in agentic browsers (but not affect regular users?)? If so, how?
+
+## Should `<login>` participate in `<form>` so that it can be used declaratively?
+
+All forms of credentials are most useful server-side rather than client-side, so it would be nice to see them be able to participate in `<form>`s. For example, something along the lines of:
+
+```html
+<form action="server.php" method="POST">
+  <login name="token">
+    <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred"></credential>
+    <credential type="federated" clientId="1234" configURL="https://idp1.example/config"></credential>
+    <credential type="federated" clientId="5678" configURL="https://idp2.example/config"></credential>
+  </login>
+</form>
+```
 
 # Alternatives Under Consideration
 
